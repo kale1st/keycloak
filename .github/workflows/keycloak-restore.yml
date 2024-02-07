@@ -19,4 +19,4 @@ jobs:
 
       - name: Restore Keycloak data
         run: |
-          docker run --rm -v $(pwd):/opt/keycloak keycloak:23.0.4 import --realm master < keycloak_data.tar
+          docker run --rm -v ${{ secrets.PWD }}:/opt/keycloak keycloak:23.0.4 import --realm master < keycloak_data.tar
