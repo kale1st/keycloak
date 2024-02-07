@@ -1,0 +1,22 @@
+name: Keycloak Restore
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download Keycloak data
+        uses: actions/download-artifact@v2
+        with:
+          name: keycloak-data
+          path: .
+
+      - name: Restore Keycloak data
+        run: |
+          docker run --rm -v $(pwd):/opt/keycloak keycloak:<KEYCLOAK_SURUMU> import --realm master < keycloak_data.tar
